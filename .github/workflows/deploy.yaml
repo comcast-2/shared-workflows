@@ -4,20 +4,50 @@ on:
   workflow_call:
     inputs:
       version:
+        description: Version / Tag to deploy
         required: true
         type: string
+
       environment:
+        description: Target environment
         required: true
         type: string
+
       region:
+        description: AWS region
         required: true
         type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-          echo "Deploying version ${{ inputs.version }}"
-          echo "Environment: ${{ inputs.environment }}"
-          echo "Region: ${{ inputs.region }}"
+      - name: 🚀 Deploy Application
+        run: |
+          echo ""
+          echo "🚀 Deploying version: ${{ inputs.version }}"
+          echo "🌍 Environment:       ${{ inputs.environment }}"
+          echo "📍 Region:            ${{ inputs.region }}"
+          echo ""
+          echo "✅ Deployment started..."
+
+      # ---- simulate deployment / replace with real steps ----
+      - name: 🔧 Deployment Logic
+        run: |
+          echo "Running deployment steps..."
+          sleep 3
+          echo "Deployment logic completed."
+
+      # ---- final summary (right-side Summary tab) ----
+      - name: 📄 Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | **${{ inputs.version }}** |" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | **${{ inputs.environment }}** |" >> $GITHUB_STEP_SUMMARY
+          echo "| Region | **${{ inputs.region }}** |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Deployment finished successfully." >> $GITHUB_STEP_SUMMARY
