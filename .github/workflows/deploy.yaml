@@ -1,9 +1,15 @@
-name: Shared Deploy Workflow
+name: shared-deploy
 
 on:
-  workflow_call: 
+  workflow_call:
     inputs:
       version:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      region:
         required: true
         type: string
 
@@ -11,6 +17,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        run: |
-          echo "🚀 Deploying version ${{ inputs.version }}"
+      - run: |
+          echo "Deploying version ${{ inputs.version }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Region: ${{ inputs.region }}"
